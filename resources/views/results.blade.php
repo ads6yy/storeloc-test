@@ -11,6 +11,7 @@
                     <th>Pays</th>
                     <th>Latitude</th>
                     <th>Longitude</th>
+                    <th>Horaires</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,16 @@
                         <td>{{ $store->country_code }}</td>
                         <td>{{ $store->lat }}</td>
                         <td>{{ $store->lng }}</td>
+                        <td>
+                            @foreach(json_decode($store->hours) as $day => $hours)
+                                {{ $day }}
+                                <br>
+                                @foreach($hours as $hour)
+                                    {{ $hour }}
+                                    <br>
+                                @endforeach
+                            @endforeach
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
