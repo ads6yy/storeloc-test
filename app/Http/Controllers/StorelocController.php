@@ -30,6 +30,7 @@ class StorelocController extends Controller
             ->when($params['w'], fn ($query) => $query->where('lng', '>=', $params['w']))
             ->when($params['e'], fn ($query) => $query->where('lng', '<=', $params['e']))
             ->orderBy('name')
+            ->with('services')
             ->get();
 
         return view('results', [

@@ -12,6 +12,7 @@
                     <th>Latitude</th>
                     <th>Longitude</th>
                     <th>Horaires</th>
+                    <th>Services</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +33,11 @@
                                     {{ $hour }}
                                     <br>
                                 @endforeach
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach($store->services as $service)
+                                {{ $service->name }}
                             @endforeach
                         </td>
                     </tr>
