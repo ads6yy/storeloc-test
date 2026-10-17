@@ -22,7 +22,7 @@ class StorelocController extends Controller
             's' => 'nullable|numeric|min:-90|max:90',
             'w' => 'nullable|numeric|min:-180|max:180',
             'e' => 'nullable|numeric|min:-180|max:180',
-            'services' => 'exists:services,id',
+            'services' => 'array|exists:services,id',
         ]);
 
         $stores = Store::query()
@@ -30,7 +30,7 @@ class StorelocController extends Controller
             ->when($params['s'], fn ($query) => $query->where('lat', '>=', $params['s']))
             ->when($params['w'], fn ($query) => $query->where('lng', '>=', $params['w']))
             ->when($params['e'], fn ($query) => $query->where('lng', '<=', $params['e']))
-            ->whereHas('services', fn ($query) => $query->whereIn('id', $params['services']))
+            ->when($params['services'], fn ($query) => $query->whereHas('services', fn ($query) => $query->whereIn('id', $params['services'])))
             ->orderBy('name')
             ->with('services')
             ->get();
