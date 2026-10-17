@@ -17,7 +17,12 @@ class StorelocController extends Controller
 
     public function results(Request $request)
     {
-        $params = $request->all();
+        $params = $request->validate([
+            'n' => 'nullable|numeric|min:-90|max:90',
+            's' => 'nullable|numeric|min:-90|max:90',
+            'w' => 'nullable|numeric|min:-180|max:180',
+            'e' => 'nullable|numeric|min:-180|max:180',
+        ]);
 
         $stores = Store::query()
             ->when($params['n'], fn ($query) => $query->where('lat', '<=', $params['n']))

@@ -1,5 +1,10 @@
 @extends('layout')
 @section('content')
+
+    @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
+
     <form method="GET" action="{{ route('results') }}" class="form">
         <div class="bounds">
             <input type="search" name="n" placeholder="Latitude nord" />
