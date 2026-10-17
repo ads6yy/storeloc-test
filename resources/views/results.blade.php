@@ -26,7 +26,7 @@
                         <td>{{ $store->lng }}</td>
                         <td>
                             @foreach(json_decode($store->hours) as $day => $hours)
-                                {{ $day }}
+                                <b>{{ $day }}</b>
                                 <br>
                                 @foreach($hours as $hour)
                                     {{ $hour }}
