@@ -11,7 +11,7 @@ class Store extends Model
     use HasFactory;
 
     /**
-     * The roles that belong to the user.
+     * The services that belong to the store.
      */
     public function services(): BelongsToMany
     {
