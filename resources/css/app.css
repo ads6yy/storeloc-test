@@ -28,6 +28,17 @@ table.results tbody tr:hover {
     background-color: #f5f5f5;
     cursor: pointer;
 }
+.results-layout {
+    display: flex;
+    align-items: flex-start;
+}
+.results-table, #map {
+    flex: 0 0 50%;
+    min-width: 0;
+}
+.results-table {
+    overflow-x: auto;
+}
 #map {
     height: 400px;
 }
