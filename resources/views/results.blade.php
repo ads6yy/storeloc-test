@@ -58,8 +58,13 @@
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
 
+            var partooIcon = L.icon({
+                iconUrl: '{{ asset('images/partoo-icon.png') }}',
+                iconSize: [40, 40]
+            });
+
             @foreach ($stores as $store)
-                L.marker([{{ $store->lat }}, {{ $store->lng }}]).addTo(map);
+                L.marker([{{ $store->lat }}, {{ $store->lng }}],  {icon: partooIcon}).addTo(map);
             @endforeach
         </script>
     @endif

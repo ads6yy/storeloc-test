@@ -40,5 +40,5 @@ table.results tbody tr:hover {
     overflow-x: auto;
 }
 #map {
-    height: 400px;
+    height: 100vh;
 }
