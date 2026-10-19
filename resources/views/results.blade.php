@@ -44,5 +44,19 @@
                 @endforeach
             </tbody>
         </table>
+        <div id="map"></div>
+
+        <script>
+            var map = L.map('map').setView([48.8566, 2.3522], 8);
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            @foreach ($stores as $store)
+                L.marker([{{ $store->lat }}, {{ $store->lng }}]).addTo(map);
+            @endforeach
+        </script>
     @endif
 @endsection
