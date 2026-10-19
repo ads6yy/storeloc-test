@@ -23,16 +23,25 @@ class StorelocController extends Controller
             'w' => 'nullable|numeric|min:-180|max:180',
             'e' => 'nullable|numeric|min:-180|max:180',
             'services' => 'array|exists:services,id',
+            'operator' => 'in:OR,AND'
         ]);
 
         $stores = Store::query()
+            ->with('services')
             ->when($params['n'], fn ($query) => $query->where('lat', '<=', $params['n']))
             ->when($params['s'], fn ($query) => $query->where('lat', '>=', $params['s']))
             ->when($params['w'], fn ($query) => $query->where('lng', '>=', $params['w']))
             ->when($params['e'], fn ($query) => $query->where('lng', '<=', $params['e']))
-            ->when($params['services'], fn ($query) => $query->whereHas('services', fn ($query) => $query->whereIn('id', $params['services'])))
+            ->when($params['services'] ?? null, function ($query, $services) use ($params) {
+                if (($params['operator'] ?? 'OR') === 'AND') {
+                    foreach ($services as $serviceId) {
+                        $query->whereHas('services', fn ($q) => $q->where('id', $serviceId));
+                    }
+                } else {
+                    $query->whereHas('services', fn ($q) => $q->whereIn('id', $services));
+                }
+            })
             ->orderBy('name')
-            ->with('services')
             ->get();
 
         return view('results', [
